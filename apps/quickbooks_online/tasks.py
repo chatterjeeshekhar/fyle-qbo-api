@@ -11,11 +11,11 @@ from qbosdk.exceptions import WrongParamsError
 from fyle_jobs import FyleJobsSDK
 from fyle_qbo_api.exceptions import BulkError
 
-from apps.fyle.utils import FyleConnector
 from apps.fyle.models import ExpenseGroup
 from apps.tasks.models import TaskLog
 from apps.mappings.models import EmployeeMapping, GeneralMapping, CategoryMapping
 from apps.workspaces.models import QBOCredential, FyleCredential
+from apps.fyle.utils import FyleConnector
 
 from .models import Bill, BillLineitem, Cheque, ChequeLineitem, CreditCardPurchase, CreditCardPurchaseLineitem,\
     JournalEntry, JournalEntryLineitem
@@ -43,7 +43,7 @@ def schedule_bills_creation(workspace_id: int, expense_group_ids: List[str], use
 
     fyle_credentials = FyleCredential.objects.get(
         workspace_id=workspace_id)
-    fyle_connector = FyleConnector(fyle_credentials.refresh_token)
+    fyle_connector = FyleConnector(fyle_credentials.refresh_token, workspace_id)
     fyle_sdk_connection = fyle_connector.connection
     jobs = FyleJobsSDK(settings.FYLE_JOBS_URL, fyle_sdk_connection)
 
