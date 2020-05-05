@@ -1,4 +1,3 @@
-from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.views import status
 from rest_framework import generics
@@ -31,7 +30,7 @@ class VendorView(generics.ListCreateAPIView):
         return DestinationAttribute.objects.filter(
             attribute_type='VENDOR', workspace_id=self.kwargs['workspace_id']).order_by('value')
 
-    def post(self, request, **kwargs):
+    def post(self, request, *args, **kwargs):
         """
         Get vendors from QBO
         """
@@ -66,7 +65,7 @@ class EmployeeView(generics.ListCreateAPIView):
         return DestinationAttribute.objects.filter(
             attribute_type='EMPLOYEE', workspace_id=self.kwargs['workspace_id']).order_by('value')
 
-    def post(self, request, **kwargs):
+    def post(self, request, *args, **kwargs):
         """
         Get employees from QBO
         """
@@ -101,7 +100,7 @@ class AccountView(generics.ListCreateAPIView):
         return DestinationAttribute.objects.filter(
             attribute_type='ACCOUNT', workspace_id=self.kwargs['workspace_id']).order_by('value')
 
-    def post(self, request, **kwargs):
+    def post(self, request, *args, **kwargs):
         """
         Get accounts from QBO
         """
@@ -136,7 +135,7 @@ class CreditCardAccountView(generics.ListCreateAPIView):
         return DestinationAttribute.objects.filter(
             attribute_type='CREDIT_CARD_ACCOUNT', workspace_id=self.kwargs['workspace_id']).order_by('value')
 
-    def post(self, request, **kwargs):
+    def post(self, request, *args, **kwargs):
         """
         Get accounts from QBO
         """
@@ -171,7 +170,7 @@ class BankAccountView(generics.ListCreateAPIView):
         return DestinationAttribute.objects.filter(
             attribute_type='BANK_ACCOUNT', workspace_id=self.kwargs['workspace_id']).order_by('value')
 
-    def post(self, request, **kwargs):
+    def post(self, request, *args, **kwargs):
         """
         Get accounts from QBO
         """
@@ -206,7 +205,7 @@ class AccountsPayableView(generics.ListCreateAPIView):
         return DestinationAttribute.objects.filter(
             attribute_type='ACCOUNTS_PAYABLE', workspace_id=self.kwargs['workspace_id']).order_by('value')
 
-    def post(self, request, **kwargs):
+    def post(self, request, *args, **kwargs):
         """
         Get accounts from QBO
         """
@@ -242,7 +241,7 @@ class ClassView(generics.ListCreateAPIView):
         return DestinationAttribute.objects.filter(
             attribute_type='CLASS', workspace_id=self.kwargs['workspace_id']).order_by('value')
 
-    def post(self, request, **kwargs):
+    def post(self, request, *args, **kwargs):
         """
         Get classes from QBO
         """
@@ -277,7 +276,7 @@ class DepartmentView(generics.ListCreateAPIView):
         return DestinationAttribute.objects.filter(
             attribute_type='DEPARTMENT', workspace_id=self.kwargs['workspace_id']).order_by('value')
 
-    def post(self, request, **kwargs):
+    def post(self, request, *args, **kwargs):
         """
         Get departments from QBO
         """
@@ -313,7 +312,7 @@ class CustomerView(generics.ListCreateAPIView):
         return DestinationAttribute.objects.filter(
             attribute_type='CUSTOMER', workspace_id=self.kwargs['workspace_id']).order_by('value')
 
-    def post(self, request, **kwargs):
+    def post(self, request, *args, **kwargs):
         """
         Get customers from QBO
         """
