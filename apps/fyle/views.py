@@ -169,7 +169,8 @@ class EmployeeView(generics.ListCreateAPIView):
     pagination_class = None
 
     def get_queryset(self):
-        return ExpenseAttribute.objects.filter(attribute_type='EMPLOYEE', workspace_id=self.kwargs['workspace_id'])
+        return ExpenseAttribute.objects.filter(
+            attribute_type='EMPLOYEE', workspace_id=self.kwargs['workspace_id']).order_by('value')
 
     def post(self, request, *args, **kwargs):
         """
@@ -205,7 +206,8 @@ class CategoryView(generics.ListCreateAPIView):
     pagination_class = None
 
     def get_queryset(self):
-        return ExpenseAttribute.objects.filter(attribute_type='CATEGORY', workspace_id=self.kwargs['workspace_id'])
+        return ExpenseAttribute.objects.filter(
+            attribute_type='CATEGORY', workspace_id=self.kwargs['workspace_id']).order_by('value')
 
     def post(self, request, *args, **kwargs):
         """
@@ -242,7 +244,8 @@ class CostCenterView(generics.ListCreateAPIView):
     pagination_class = None
 
     def get_queryset(self):
-        return ExpenseAttribute.objects.filter(attribute_type='COST_CENTER', workspace_id=self.kwargs['workspace_id'])
+        return ExpenseAttribute.objects.filter(
+            attribute_type='COST_CENTER', workspace_id=self.kwargs['workspace_id']).order_by('value')
 
     def post(self, request, *args, **kwargs):
         """
@@ -278,7 +281,8 @@ class ProjectView(generics.ListCreateAPIView):
     pagination_class = None
 
     def get_queryset(self):
-        return ExpenseAttribute.objects.filter(attribute_type='PROJECT', workspace_id=self.kwargs['workspace_id'])
+        return ExpenseAttribute.objects.filter(
+            attribute_type='PROJECT', workspace_id=self.kwargs['workspace_id']).order_by('value')
 
     def post(self, request, *args, **kwargs):
         """

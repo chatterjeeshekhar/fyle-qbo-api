@@ -27,12 +27,13 @@ def validate_mappings(source_type: str, destination_type: str, mappings: List[Di
             })
 
         if ('source_value' not in mapping) and (not mapping['source_value']):
-            bulk_errors.append({
-                'row': row,
-                'type': 'source value',
-                'value': None,
-                'message': 'source value not found'
-            })
+            if source_type != 'GENERAL':
+                bulk_errors.append({
+                    'row': row,
+                    'type': 'source value',
+                    'value': None,
+                    'message': 'source value not found'
+                })
 
         if not destination_type:
             bulk_errors.append({
@@ -50,34 +51,35 @@ def validate_mappings(source_type: str, destination_type: str, mappings: List[Di
                 'message': 'destination value not found'
             })
 
-        mapping_setting = MappingSetting.objects.filter(
-            source_field=source_type,
-            destination_field=destination_type
-        ).first()
+        if source_type != 'GENERAL':
+            mapping_setting = MappingSetting.objects.filter(
+                source_field=source_type,
+                destination_field=destination_type
+            ).first()
 
-        if not mapping_setting:
-            bulk_errors.append({
-                'row': row,
-                'type': 'Setting',
-                'value': '{0} / {1}'.format(source_type, destination_type),
-                'message': 'Setting not found {0} / {1}'.format(
-                    source_type, mapping['source_value'])
-            })
+            if not mapping_setting:
+                bulk_errors.append({
+                    'row': row,
+                    'type': 'Setting',
+                    'value': '{0} / {1}'.format(source_type, destination_type),
+                    'message': 'Setting not found {0} / {1}'.format(
+                        source_type, mapping['source_value'])
+                })
 
-        expense_attribute = ExpenseAttribute.objects.filter(
-            source_type=source_type,
-            value=mapping['source_value'],
-            workspace_id=workspace_id
-        ).first()
+            expense_attribute = ExpenseAttribute.objects.filter(
+                source_type=source_type,
+                value=mapping['source_value'],
+                workspace_id=workspace_id
+            ).first()
 
-        if not expense_attribute:
-            bulk_errors.append({
-                'row': row,
-                'type': source_type,
-                'value': mapping['soure_value'],
-                'message': 'Source type - {0}, Value - {1} not found'.format(
-                    source_type, mapping['source_value'])
-            })
+            if not expense_attribute:
+                bulk_errors.append({
+                    'row': row,
+                    'type': source_type,
+                    'value': mapping['soure_value'],
+                    'message': 'Source type - {0}, Value - {1} not found'.format(
+                        source_type, mapping['source_value'])
+                })
 
         destination_attribute = DestinationAttribute.objects.filter(
             destination_type=destination_type,

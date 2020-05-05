@@ -57,7 +57,7 @@ def schedule_bills_creation(workspace_id: int, expense_group_ids: List[str], use
             }
         )
         created_job = jobs.trigger_now(
-            callback_url='{0}{1}'.format(settings.API_URL, '/workspaces/{0}/qbo/bills/'.format(workspace_id)),
+            callback_url='{0}{1}'.format(settings.API_URL, '/workspaces/{0}/f/bills/'.format(workspace_id)),
             callback_method='POST', object_id=task_log.id, payload={
                 'expense_group_id': expense_group.id,
                 'task_log_id': task_log.id
@@ -80,7 +80,7 @@ def create_bill(expense_group, task_log):
 
             qbo_credentials = QBOCredential.objects.get(workspace_id=expense_group.workspace_id)
 
-            qbo_connection = QBOConnector(qbo_credentials)
+            qbo_connection = QBOConnector(qbo_credentials, expense_group.workspace_id)
 
             created_bill = qbo_connection.post_bill(bill_object, bill_lineitems_objects)
 
@@ -232,7 +232,7 @@ def create_cheque(expense_group, task_log):
 
             qbo_credentials = QBOCredential.objects.get(workspace_id=expense_group.workspace_id)
 
-            qbo_connection = QBOConnector(qbo_credentials)
+            qbo_connection = QBOConnector(qbo_credentials, expense_group.workspace_id)
 
             created_cheque = qbo_connection.post_cheque(cheque_object, cheque_line_item_objects)
 
@@ -339,7 +339,7 @@ def create_credit_card_purchase(expense_group, task_log):
             )
             qbo_credentials = QBOCredential.objects.get(workspace_id=expense_group.workspace_id)
 
-            qbo_connection = QBOConnector(qbo_credentials)
+            qbo_connection = QBOConnector(qbo_credentials, expense_group.workspace_id)
 
             created_credit_card_purchase = qbo_connection.post_credit_card_purchase(
                 credit_card_purchase_object, credit_card_purchase_lineitems_objects
@@ -448,7 +448,7 @@ def create_journal_entry(expense_group, task_log):
 
             qbo_credentials = QBOCredential.objects.get(workspace_id=expense_group.workspace_id)
 
-            qbo_connection = QBOConnector(qbo_credentials)
+            qbo_connection = QBOConnector(qbo_credentials, expense_group.workspace_id)
 
             created_journal_entry = qbo_connection.post_journal_entry(journal_entry_object,
                                                                       journal_entry_lineitems_objects)
